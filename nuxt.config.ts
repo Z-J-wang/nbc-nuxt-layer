@@ -6,6 +6,9 @@ import { dirname, join } from 'node:path'
 const currentDir = dirname(fileURLToPath(import.meta.url))
 
 export default defineNuxtConfig({
+  $meta: {
+    name: 'NBC' // 指定layer命名
+  },
   devtools: { enabled: true },
   modules: ['@nuxt/icon', '@nuxt/ui', '@nuxtjs/i18n'],
   css: [join(currentDir, './app/assets/css/main.css')],
