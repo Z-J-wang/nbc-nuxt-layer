@@ -2,9 +2,15 @@ import type { UseFetchOptions } from 'nuxt/app'
 
 export function useCustomFetch<T>(url: string | (() => string), options?: UseFetchOptions<T>) {
   const nuxtApp = useNuxtApp()
+  const runtimeConfig = useRuntimeConfig()
+  // 类型安全的获取baseURL
+  const getBaseURL = (): string | undefined => {
+    const baseURL = runtimeConfig.public.apiBaseUrl
+    return typeof baseURL === 'string' ? baseURL : undefined
+  }
 
   return useFetch(url, {
-    baseURL: useRuntimeConfig().public.apiBaseUrl, // 设置全局的 baseURL
+    baseURL: getBaseURL(), // 设置全局的 baseURL
     onRequest({ request, options }) {
       // 设置请求头
       console.log(request, options)

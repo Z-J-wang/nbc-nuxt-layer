@@ -75,7 +75,7 @@ const columns = computed<FooterColumn[]>(() => {
               />
 
               <template #content>
-                <img src="@/assets/img/wechat.jpg" class="w-40 h-40" />
+                <img src="https://www.smart-nbc.org.cn/assets/cn/images/weixin.jpg" class="w-40 h-40" />
               </template>
             </UPopover>
           </div>
