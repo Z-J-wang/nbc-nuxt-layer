@@ -56,8 +56,8 @@ const columns = computed<FooterColumn[]>(() => {
       <UFooterColumns
         :columns="columns"
         :ui="{
-          root: 'xl:gap-16',
-          center: 'md:grid hidden gap-16',
+          root: 'xl:gap-0',
+          center: 'md:grid hidden gap-12',
           right: 'flex justify-center',
           label: 'text-lg',
           item: '[&_a]:hover:underline [&_button]:text-gray-400!',
@@ -75,7 +75,7 @@ const columns = computed<FooterColumn[]>(() => {
               />
 
               <template #content>
-                <img src="https://www.smart-nbc.org.cn/assets/cn/images/weixin.jpg" class="w-40 h-40" />
+                <img src="../assets/img/weixin.jpg" class="w-40 h-40" />
               </template>
             </UPopover>
           </div>
@@ -117,6 +117,7 @@ en:
   helpCenter: Help
   contactSupport: Contact Support
   followUs: Follow Us
+  smartNbc: SMART-NBC
 zh-CN:
   support&docs: 支持与文档
   dataPolicy: 数据政策
@@ -132,4 +133,5 @@ zh-CN:
   helpCenter: 帮助中心
   contactSupport: 联系支持
   followUs: 关注我们
+  smartNbc: 深圳国家基因库
 </i18n>

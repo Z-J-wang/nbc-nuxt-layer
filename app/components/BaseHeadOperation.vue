@@ -45,7 +45,7 @@ const languageBtnConfig = computed(() => {
             <UButton
               :ui="{
                 base: props.dark
-                  ? 'cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C]'
+                  ? 'cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C] active:bg-white active:text-[#00274C]'
                   : ''
               }"
             >
@@ -61,7 +61,7 @@ const languageBtnConfig = computed(() => {
         <UButton
           :ui="{
             base: props.dark
-              ? 'md:px-6 cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C]'
+              ? 'md:px-6 cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C] active:bg-white active:text-[#00274C]'
               : ''
           }"
           v-bind="loginConfig"
@@ -73,7 +73,7 @@ const languageBtnConfig = computed(() => {
         <UButton
           :ui="{
             base: props.dark
-              ? 'md:px-6 cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C]'
+              ? 'md:px-6 cursor-pointer bg-transparent text-white outline outline-white hover:bg-white hover:text-[#00274C] active:bg-white active:text-[#00274C]'
               : ''
           }"
           v-bind="registerConfig"
