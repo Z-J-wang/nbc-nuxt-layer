@@ -24,13 +24,36 @@ const itemsPerPageOptions = computed(() => {
 watchEffect(() => {
   perPage.value = props.itemsPerPage || 10
 })
+
+const itemButtonClass = computed(() => {
+  const classList = {
+    xs: 'text-xs p-1',
+    sm: 'text-xs p-1.5',
+    md: 'text-sm p-1.5',
+    lg: 'text-sm p-2',
+    xl: 'text-base p-2'
+  }
+  const size = props.size || 'md'
+  return classList[size]
+})
 </script>
 
 <template>
   <div class="flex items-center gap-2">
     <div v-if="props.total">{{ t('totalCount', [props.total.toLocaleString()]) }}</div>
     <USeparator orientation="vertical" />
-    <UPagination v-bind="props" @update:page="(page) => $emit('update:page', page)" />
+    <UPagination v-bind="props" @update:page="(page) => $emit('update:page', page)">
+      <template #item="{ item }">
+        <UButton
+          v-if="item.type === 'page'"
+          :class="itemButtonClass"
+          :variant="item.value === props.page ? 'solid' : 'outline'"
+          :color="item.value === props.page ? 'primary' : 'neutral'"
+        >
+          <span class="min-w-5 text-cente">{{ item.value.toLocaleString() }}</span>
+        </UButton>
+      </template>
+    </UPagination>
     <USeparator orientation="vertical" />
     <div class="space-x-2">
       <span>{{ t('show') }}</span>
