@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<BaseTable>(), {
   topClassName: 'flex justify-between items-center',
   globalFilterOption: () => ({ clearable: true }),
   downloadBtn: false,
+  fetchData: undefined,
   sticky: 'header',
   separator: 'cells',
   ui: () => {

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// const { t } = useI18n()
-
 // 设置页面的的TDK
 useSeoMeta({
   title: '首页 - smart nuxt template'
@@ -9,7 +7,11 @@ useSeoMeta({
 
 <template>
   <PageScrollAnimation />
-  <UContainer />
+  <UContainer>
+    <section>
+      <BasePagination />
+    </section>
+  </UContainer>
 </template>
 
 <i18n lang="yaml">

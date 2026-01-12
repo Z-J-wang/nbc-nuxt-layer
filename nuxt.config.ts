@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     name: 'NBC' // 指定layer命名
   },
   devtools: { enabled: true },
-  modules: ['@nuxt/icon', '@nuxt/ui', '@nuxtjs/i18n', '@vueuse/nuxt', '@regle/nuxt'],
+  modules: ['@nuxt/ui', '@nuxt/icon', '@nuxtjs/i18n', '@vueuse/nuxt', '@regle/nuxt'],
   css: [join(currentDir, './app/assets/css/main.css')],
   i18n: {
     defaultLocale: 'zh-CN',

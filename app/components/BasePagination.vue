@@ -1,4 +1,9 @@
 <script setup lang="ts">
+/**
+ * @description 基础分页组件
+ * 使用此组件时需确保插件 @nuxt/ui 在 nuxt.config.ts 配置文件中的modules选项中注册，
+ * 并且位于所有模块的前面
+ */
 import type { PaginationProps } from '@nuxt/ui'
 
 const props = withDefaults(defineProps<PaginationProps & { itemsPerPageOptions?: number[]; openAll?: boolean }>(), {
@@ -34,7 +39,14 @@ const itemButtonClass = computed(() => {
     xl: 'text-base p-2'
   }
   const size = props.size || 'md'
-  return classList[size]
+
+  return props.ui.item ? classList[size] + ' ' + props.ui.item : classList[size]
+})
+
+const labelClass = computed(() => {
+  const classname = 'min-w-5 text-center'
+
+  return props.ui.label ? classname + ' ' + props.ui.label : classname
 })
 </script>
 
@@ -50,7 +62,7 @@ const itemButtonClass = computed(() => {
           :variant="item.value === props.page ? 'solid' : 'outline'"
           :color="item.value === props.page ? 'primary' : 'neutral'"
         >
-          <span class="min-w-5 text-cente">{{ item.value.toLocaleString() }}</span>
+          <span :class="labelClass">{{ item.value.toLocaleString() }}</span>
         </UButton>
       </template>
     </UPagination>
