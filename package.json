@@ -1,7 +1,7 @@
 {
   "name": "nbc-nuxt-layer",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.1",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
@@ -9,7 +9,11 @@
     "build": "nuxt build .playground",
     "generate": "nuxt generate .playground",
     "preview": "nuxt preview .playground",
-    "lint": "eslint ."
+    "lint:eslint": "eslint .",
+    "lint:stylelint": "stylelint \"app/**/*.{vue,css,less,html,xml}\"",
+    "lint": "pnpm run lint:eslint && pnpm run lint:stylelint",
+    "lint:fix": "pnpm run lint:eslint --fix && pnpm run lint:stylelint --fix",
+    "type-check": "npx nuxt typecheck"
   },
   "devDependencies": {
     "@nuxt/eslint": "latest",
