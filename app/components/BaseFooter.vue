@@ -135,3 +135,8 @@ zh-CN:
   followUs: 关注我们
   smartNbc: 深圳国家基因库
 </i18n>
+
+<style>
+@import 'tailwindcss';
+@import '@nuxt/ui';
+</style>
