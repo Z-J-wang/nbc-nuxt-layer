@@ -13,14 +13,3 @@ useSeoMeta({
     </section>
   </UContainer>
 </template>
-
-<i18n lang="yaml">
-en:
-  name: Name
-  age: Age
-  getUserData: Get user data
-zh-CN:
-  name: 姓名
-  age: 年龄
-  getUserData: 获取用户数据
-</i18n>
