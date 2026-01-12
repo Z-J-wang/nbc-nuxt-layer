@@ -59,17 +59,17 @@ const columns = computed<FooterColumn[]>(() => {
           root: 'xl:gap-0',
           center: 'md:grid hidden gap-12',
           right: 'flex justify-center',
-          label: 'text-lg',
+          label: 'text-lg h-13',
           item: '[&_a]:hover:underline [&_button]:text-gray-400!',
           link: 'text-base text-white! decoration-2 underline-offset-3'
         }"
       >
         <template #right>
-          <div class="inline-flex flex-row items-center md:flex-col gap-6">
-            <h3 class="text-lg font-bold">{{ t('followUs') }}</h3>
+          <div class="inline-flex flex-row items-center md:flex-col">
+            <h3 class="text-lg font-bold h-13">{{ t('followUs') }}</h3>
             <UPopover mode="hover">
               <UButton
-                class="rounded-[50%] cursor-pointer outline outline-white text-white"
+                class="mt-6 rounded-[50%] cursor-pointer outline outline-white text-white"
                 variant="outline"
                 icon="tdesign:logo-wechat"
               />
