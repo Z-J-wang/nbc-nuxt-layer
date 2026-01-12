@@ -1,14 +1,14 @@
 # NBC Nuxt Layer
 
-组内前端 Nuxt 项目基础 Layer(层)。
+组内前端 Nuxt 项目 Base Layer(基础层)。
 
-基础 Layer 内置了一些基础性的组件、页面、utils等等，以便于开发人员在开发项目时使用。
+Base Layer 内置了一些基础的组件、页面、utils等等，以便于开发人员在开发项目时使用。
 
 ## 如何在项目中引入?
 
-### 层注册
+### 注册 Base Layer
 
-首先需要在项目中的`nuxt.config.ts` 中注册基础 Layer。
+首先需要在项目中的`nuxt.config.ts` 中注册 Base Layer。
 
 ```ts
 export default defineNuxtConfig({
@@ -20,13 +20,13 @@ export default defineNuxtConfig({
 
 ### 安装依赖
 
-基础 Layer 中的依赖需要手动在具体项目中安装。所以需要把`package.json`中`dependencies`里面的依赖复制到具体项目中，然后执行`pnpm install`指令来安装依赖。
+Base Layer 中的依赖需要手动在具体项目中安装。所以需要把 `package.json` 中 `dependencies` 里面的依赖复制到具体项目中，然后执行`pnpm install`指令来安装依赖。
 
 ### 注册 nuxt 模块
 
-基础 Layer 中的配置文件 `nuxt.config.ts` 会自动和项目的配置文件 `nuxt.config.ts` 进行合并。所以无需为基础 Layer 做额外的配置。
+Base Layer 的配置文件 `nuxt.config.ts` 会自动和项目的配置文件 `nuxt.config.ts` 进行合并。因此无需为 Base Layer 做额外的配置。
 
-不过有一点需要注意的是，`modules` 配置项中的 `@nuxt/ui`顺序需要位于所有设计样式的模块之前。避免样式冲突。
+不过有一点需要注意的是，`modules` 配置项中的 `@nuxt/ui` 顺序需要位于所有涉及样式的模块之前。避免样式冲突。如果不清楚那些模块会引入样式，请直接将 `@nuxt/ui` 放在最前面。
 
 ## 开发您的 Layer
 
