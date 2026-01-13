@@ -40,13 +40,13 @@ const itemButtonClass = computed(() => {
   }
   const size = props.size || 'md'
 
-  return props.ui.item ? classList[size] + ' ' + props.ui.item : classList[size]
+  return classNameMerge(classList[size], classList[size])
 })
 
 const labelClass = computed(() => {
   const classname = 'min-w-5 text-center'
 
-  return props.ui.label ? classname + ' ' + props.ui.label : classname
+  return classNameMerge(classname, props.ui.label)
 })
 </script>
 

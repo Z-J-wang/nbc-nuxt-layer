@@ -1,3 +1,6 @@
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 export const toReadableDate = (date: Date | string, fallback = '') => {
   try {
     if (typeof date === 'string') {
@@ -54,4 +57,13 @@ export const formatBytes = (bytes = 0, decimals = 2) => {
   const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
   const i = Math.floor(Math.log(bytes) / Math.log(k)) // 获取字节的指数，即单位的下标
   return `${(bytes / Math.pow(k, i)).toFixed(decimals)} ${units[i]}`
+}
+
+/**
+ * 合并类名
+ * @param classnames
+ * @returns 合并后的类名
+ */
+export function classNameMerge(...classnames: ClassValue[]): string {
+  return twMerge(clsx(classnames))
 }

@@ -66,16 +66,16 @@ const columns = computed<FooterColumn[]>(() => {
       >
         <template #right>
           <div class="inline-flex flex-row items-center md:flex-col">
-            <h3 class="text-lg font-bold h-13">{{ t('followUs') }}</h3>
+            <h3 class="h-13 text-lg font-bold">{{ t('followUs') }}</h3>
             <UPopover mode="hover">
               <UButton
-                class="mt-6 rounded-[50%] cursor-pointer outline outline-white text-white"
+                class="mt-6 cursor-pointer rounded-[50%] text-white outline outline-white"
                 variant="outline"
                 icon="tdesign:logo-wechat"
               />
 
               <template #content>
-                <img src="../assets/img/weixin.jpg" class="w-40 h-40" />
+                <img src="../assets/img/weixin.jpg" class="h-40 w-40" />
               </template>
             </UPopover>
           </div>
@@ -86,7 +86,7 @@ const columns = computed<FooterColumn[]>(() => {
     <template #bottom>
       <UContainer>
         <USeparator class="my-8" />
-        <div class="flex justify-between items-center">
+        <div class="flex items-center justify-between">
           <div>
             <i18n-t keypath="general.copyrighted">
               <span> © {{ year }} {{ t('smartNbc') }} </span>

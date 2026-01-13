@@ -37,7 +37,7 @@ watchEffect(() => {
   <div class="help flex gap-10">
     <aside class="hidden md:block" :class="asideWidth">
       <div
-        class="sticky top-(--ui-header-height) py-5 rounded-md bg-slate-50 backdrop-blur-[3px] border-[0.8px] border-slate-300 max-h-[calc(100vh-var(--ui-header-height)-2rem)] overflow-y-auto"
+        class="sticky top-(--ui-header-height) max-h-[calc(100vh-var(--ui-header-height)-2rem)] overflow-y-auto rounded-md border-[0.8px] border-slate-300 bg-slate-50 py-5 backdrop-blur-[3px]"
       >
         <UTree
           v-model="activeHeading"

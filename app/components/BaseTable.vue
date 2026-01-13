@@ -71,8 +71,8 @@ const tableUiConfig = computed(() => {
   }
 
   if (props.dense) {
-    tableStyleless.th = tableStyleless.th ? `${tableStyleless.th} p-2` : 'p-2'
-    tableStyleless.td = tableStyleless.td ? `${tableStyleless.td} p-2` : 'p-2'
+    tableStyleless.th = classNameMerge(tableStyleless.th, 'p-2')
+    tableStyleless.td = classNameMerge(tableStyleless.td, 'p-2')
   }
 
   const mergeTableStyleless = {
@@ -87,7 +87,7 @@ const tableUiConfig = computed(() => {
     mergeTableStyleless[key] = [prev, curStr].filter(Boolean).join(' ')
   })
 
-  mergeTableStyleless.root = mergeTableStyleless.root + ' border border-(--ui-border) flex-1 w-0' // 强制表格宽度自适应父容器
+  mergeTableStyleless.root = classNameMerge(mergeTableStyleless.root, 'border border-(--ui-border) flex-1 w-0') // 强制表格宽度自适应父容器
 
   return mergeTableStyleless
 })
@@ -200,10 +200,10 @@ if (props.lazy) {
     </div>
     <div v-if="lazy">
       <!-- Lazy 模式的表格 -->
-      <div class="w-full flex overflow-auto rounded">
+      <div class="flex w-full overflow-auto rounded">
         <UTable
           ref="table"
-          class="flex-1 w-0"
+          class="w-0 flex-1"
           v-bind="tableProps"
           :loading="loading"
           :ui="tableUiConfig"
@@ -214,7 +214,7 @@ if (props.lazy) {
           </template>
         </UTable>
       </div>
-      <div v-if="pagination.total > pagination.pageSize" class="flex justify-end border-t border-default pt-4 px-4">
+      <div v-if="pagination.total > pagination.pageSize" class="border-default flex justify-end border-t px-4 pt-4">
         <BasePagination
           show-edges
           :page="pagination.pageIndex"
@@ -227,12 +227,12 @@ if (props.lazy) {
     </div>
     <div v-else>
       <!-- 非 Lazy 模式的表格 -->
-      <div class="w-full flex overflow-auto rounded">
+      <div class="flex w-full overflow-auto rounded">
         <UTable
           ref="table"
           v-model:pagination="innerPagination"
           v-model:global-filter="filter"
-          class="flex-1 w-0"
+          class="w-0 flex-1"
           v-bind="tableProps"
           :ui="tableUiConfig"
           :empty="t('table.noData')"
@@ -246,7 +246,7 @@ if (props.lazy) {
         </UTable>
       </div>
 
-      <div v-if="pagination.total > pagination.pageSize" class="flex justify-end border-t border-default pt-4 px-4">
+      <div v-if="pagination.total > pagination.pageSize" class="border-default flex justify-end border-t px-4 pt-4">
         <BasePagination
           show-edges
           :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
