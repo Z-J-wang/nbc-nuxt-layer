@@ -35,7 +35,7 @@ watchEffect((onInvalidate) => {
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger) // 注册ScrollTrigger插件
   setTimeout(() => {
-    // 为页面中的所有元素增加淡入动画效果
+    // 为页面中的所有section元素增加淡入动画效果
     const sections = gsap.utils.toArray('section') as HTMLElement[]
     sections.forEach((section, i) => {
       gsap.set(section, { opacity: 0, y: 50 })
