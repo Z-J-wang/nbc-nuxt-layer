@@ -6,9 +6,16 @@
  */
 import type { PaginationProps } from '@nuxt/ui'
 
-const props = withDefaults(defineProps<PaginationProps & { itemsPerPageOptions?: number[]; openAll?: boolean }>(), {
+export type BasePagination = PaginationProps & {
+  itemsPerPageOptions?: number[]
+  openAll?: boolean
+  showItemsPerPage?: boolean
+}
+
+const props = withDefaults(defineProps<BasePagination>(), {
   as: 'div',
   showControls: true,
+  showItemsPerPage: true,
   itemsPerPageOptions: () => [10, 20, 50, 100, 500, 1000],
   openAll: false,
   ui: () => ({ first: 'hidden', last: 'hidden' })
@@ -51,9 +58,9 @@ const labelClass = computed(() => {
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
-    <div v-if="props.total">{{ t('totalCount', [props.total.toLocaleString()]) }}</div>
-    <USeparator orientation="vertical" />
+  <div class="flex w-full flex-col items-end gap-2 lg:flex-row lg:items-center lg:justify-end">
+    <div v-if="props.total" class="hidden lg:block">{{ t('totalCount', [props.total.toLocaleString()]) }}</div>
+    <USeparator class="hidden lg:block" orientation="vertical" />
     <UPagination v-bind="props" @update:page="(page) => $emit('update:page', page)">
       <template #item="{ item }">
         <UButton
@@ -66,15 +73,20 @@ const labelClass = computed(() => {
         </UButton>
       </template>
     </UPagination>
-    <USeparator orientation="vertical" />
-    <div class="space-x-2">
-      <span>{{ t('show') }}</span>
-      <USelect
-        v-model="perPage"
-        :items="itemsPerPageOptions"
-        :ui="{ content: 'min-w-fit' }"
-        @update:model-value="(pageSize) => $emit('update:items-per-page', pageSize === 'all' ? props.total : pageSize)"
-      />
+    <USeparator v-if="props.showItemsPerPage" class="hidden lg:block" orientation="vertical" />
+    <div v-if="props.showItemsPerPage" class="flex w-full items-center justify-between lg:w-auto">
+      <div v-if="props.total" class="block lg:hidden">{{ t('totalCount', [props.total.toLocaleString()]) }}</div>
+      <div class="space-x-2">
+        <span>{{ t('show') }}</span>
+        <USelect
+          v-model="perPage"
+          :items="itemsPerPageOptions"
+          :ui="{ content: 'min-w-fit' }"
+          @update:model-value="
+            (pageSize) => $emit('update:items-per-page', pageSize === 'all' ? props.total : pageSize)
+          "
+        />
+      </div>
     </div>
   </div>
 </template>

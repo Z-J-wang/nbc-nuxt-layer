@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getPaginationRowModel } from '@tanstack/vue-table'
 import type { TableProps, ButtonProps } from '@nuxt/ui'
+import type { BasePagination } from './BasePagination.vue'
 
 export type Pagination = {
   pageIndex: number
@@ -8,7 +9,16 @@ export type Pagination = {
   total: number
 }
 
+export type PaginationConfig = Omit<BasePagination, 'total' | 'page' | 'itemsPerPage'>
+
+const InnerTable = useTemplateRef('InnerTable')
+
+defineExpose({
+  InnerTable
+})
+
 type BaseTable = Pick<TableProps, 'ui' | 'loading' | 'sticky' | 'columns' | 'data'> & {
+  paginationConfig?: PaginationConfig
   lazy?: boolean
   dense?: boolean
   separator?: 'cells' | 'rows' | 'none'
@@ -29,6 +39,11 @@ const props = withDefaults(defineProps<BaseTable>(), {
   fetchData: undefined,
   sticky: 'header',
   separator: 'cells',
+  paginationConfig: (): PaginationConfig => {
+    return {
+      showEdges: true
+    }
+  },
   ui: () => {
     return { root: 'max-h-[70vh]' }
   }
@@ -70,10 +85,8 @@ const tableUiConfig = computed(() => {
     })
   }
 
-  if (props.dense) {
-    tableStyleless.th = classNameMerge(tableStyleless.th, 'p-2')
-    tableStyleless.td = classNameMerge(tableStyleless.td, 'p-2')
-  }
+  tableStyleless.th = classNameMerge(tableStyleless.th, props.dense ? 'p-2' : 'py-2 px-4')
+  tableStyleless.td = classNameMerge(tableStyleless.td, props.dense ? 'p-2' : 'py-2 px-4')
 
   const mergeTableStyleless = {
     root: 'max-h-[70vh] ', // 设置默认最大高度
@@ -128,8 +141,6 @@ const pagination = defineModel<Pagination>('pagination', {
 const filter = defineModel<string>('filter', {
   default: ''
 })
-
-const table = useTemplateRef('table')
 
 // 内部分页数据, 仅在关闭 lazy 模式使用
 const innerPagination = useState<Omit<Pagination, 'total'>>('innerPagination', () => ({
@@ -202,7 +213,7 @@ if (props.lazy) {
       <!-- Lazy 模式的表格 -->
       <div class="flex w-full overflow-auto rounded">
         <UTable
-          ref="table"
+          ref="InnerTable"
           class="w-0 flex-1"
           v-bind="tableProps"
           :loading="loading"
@@ -214,9 +225,9 @@ if (props.lazy) {
           </template>
         </UTable>
       </div>
-      <div v-if="pagination.total > pagination.pageSize" class="border-default flex justify-end border-t px-4 pt-4">
+      <div v-if="pagination.total > pagination.pageSize" class="border-default flex justify-end border-t pt-4 lg:px-4">
         <BasePagination
-          show-edges
+          v-bind="paginationConfig"
           :page="pagination.pageIndex"
           :items-per-page="pagination.pageSize"
           :total="pagination.total"
@@ -229,8 +240,7 @@ if (props.lazy) {
       <!-- 非 Lazy 模式的表格 -->
       <div class="flex w-full overflow-auto rounded">
         <UTable
-          ref="table"
-          v-model:pagination="innerPagination"
+          ref="InnerTable"
           v-model:global-filter="filter"
           class="w-0 flex-1"
           v-bind="tableProps"
@@ -246,14 +256,19 @@ if (props.lazy) {
         </UTable>
       </div>
 
-      <div v-if="pagination.total > pagination.pageSize" class="border-default flex justify-end border-t px-4 pt-4">
+      <div class="border-default flex justify-end border-t pt-4 lg:px-4">
         <BasePagination
-          show-edges
-          :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
-          :items-per-page="table?.tableApi?.getState().pagination.pageSize"
-          :total="table?.tableApi?.getFilteredRowModel().rows.length"
-          @update:page="(p) => table?.tableApi?.setPageIndex(p - 1)"
-          @update:items-per-page="(pageSize) => table?.tableApi?.setPageSize(pageSize)"
+          v-bind="paginationConfig"
+          :page="(InnerTable?.tableApi?.getState().pagination.pageIndex || 0) + 1"
+          :items-per-page="InnerTable?.tableApi?.getState().pagination.pageSize"
+          :total="InnerTable?.tableApi?.getFilteredRowModel().rows.length"
+          @update:page="
+            (p) => {
+              console.log('update page', p)
+              InnerTable?.tableApi?.setPageIndex(p - 1)
+            }
+          "
+          @update:items-per-page="(pageSize) => InnerTable?.tableApi?.setPageSize(pageSize)"
         />
       </div>
     </div>
