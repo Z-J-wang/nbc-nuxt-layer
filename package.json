@@ -1,7 +1,7 @@
 {
   "name": "nbc-nuxt-layer",
   "type": "module",
-  "version": "0.0.1-alpha.7",
+  "version": "0.0.1-alpha.8",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
