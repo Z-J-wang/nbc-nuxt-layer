@@ -1,6 +1,11 @@
 import type { UseFetchOptions } from 'nuxt/app'
 
-export function useCustomFetch<T>(url: string | (() => string), options?: UseFetchOptions<T>) {
+export function useCustomFetch<T>(
+  url: string | (() => string),
+  options: UseFetchOptions<T> & {
+    banNuxtCache?: boolean // 是否禁用 Nuxt 的请求缓存功能
+  } = { banNuxtCache: false }
+) {
   const nuxtApp = useNuxtApp()
   const runtimeConfig = useRuntimeConfig()
   // 类型安全的获取baseURL
@@ -10,6 +15,7 @@ export function useCustomFetch<T>(url: string | (() => string), options?: UseFet
   }
 
   return useFetch(url, {
+    key: options.banNuxtCache ? `fetch-${Date.now()}` : undefined,
     baseURL: getBaseURL(), // 设置全局的 baseURL
     onRequest({ request, options }) {
       // 设置请求头
