@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ModalProps, ButtonProps, IconProps } from '@nuxt/ui'
-import { merge } from 'lodash'
+import { merge } from 'lodash-es'
 
 type UModalProps = Pick<
   ModalProps,
